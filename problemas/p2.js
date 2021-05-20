@@ -65,21 +65,29 @@ let finalArray = [];
 let lineas = csv.split('\n');
 let cabecera = lineas[0].split(',')
 
-console.log("lineas");console.log(lineas)
+// console.log("lineas");console.log(lineas)
+//PD ROWDATE 0 SIEMPRE SERA UNA SEDE, 1 SIEMPRE SERA UNA CLASE Y ASI
+// console.log("cabecera");console.log(cabecera)
 
-
-
-console.log("cabecera");console.log(cabecera)
+let seccionAnt = "";
 for (let i=1;i<lineas.length;i++){
-    // console.log(lineas)
     let rowData = lineas[i].split(',')
+    // console.log("rowdata:::");console.log(rowData[0])
+    // console.log("rowdata:::");console.log(rowData[1])
+    // console.log("rowdata:::");console.log(rowData[2])
+    // console.log("rowdata:::");console.log(rowData[3])
     finalArray[i]={}
-    for (let j=0;j<rowData.length;j++){
-        // console.log("j:");  console.log(rowData[j])
-        finalArray[i][ cabecera[j] ] = rowData[j];
+    if (seccionAnt==rowData[0]){
+        console.log ("son iguales")
+    }else{
+        finalArray[i][ "nombre" ] = rowData[0];
+        finalArray[i][ "tipo" ] = "sede";
     }
+    seccionAnt = rowData[0];
+  
+    
 }
-// console.log(finalArray);
+console.log(finalArray);
 
 
 
