@@ -14,18 +14,20 @@ function returnNoSons(){
     //NOTA: I representa la palabra : INDEX
     for (let sedeI=0;sedeI<data.hijos.length;sedeI++){
         // console.log("muy buenas gente");
-        console.log("muy buenas gente");  console.log(data.hijos[sedeI]);
+        // console.log("muy buenas gente");  console.log(data.hijos[sedeI]);
         for (let cursoI=0;         cursoI<data.hijos[sedeI].hijos.length;          cursoI++){
-           
-            console.log("muy buenas gente2");  console.log(data.hijos[sedeI].hijos[cursoI].hijos);
-
+            // console.log("muy buenas gente2");  console.log(data.hijos[sedeI].hijos[cursoI].hijos);
             for (let seccionI=0; seccionI<data.hijos[sedeI].hijos[cursoI].hijos.length;              seccionI++){
+                // console.log("muy buenas gente3"); console.log(data.hijos[sedeI].hijos[cursoI].hijos[seccionI].hijos);
+               
+                for (let ofertaI=0; ofertaI<data.hijos[sedeI].hijos[cursoI].hijos[seccionI].hijos.length;              ofertaI++){
+                    // console.log("muy buenas gente55"); console.log(data.hijos[sedeI].hijos[cursoI].hijos[seccionI].hijos[ofertaI].hijos);
+                    if (data.hijos[sedeI].hijos[cursoI].hijos[seccionI].hijos[ofertaI].hijos.length==0){
+                        console.log("vacio5")
+                    }
+                }
 
-                console.log("muy buenas gente3"); console.log(data.hijos[sedeI].hijos[cursoI].hijos[seccionI].hijos);
 
-                // for (let ofertaI=0;   seccionI<data.hijos[sedeI].hijos[ofertaI].length     ;ofertaI++){
-                  
-                // }
             }
         }
     }
