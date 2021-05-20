@@ -79,15 +79,18 @@ for (let i=1;i<lineas.length;i++){
    if ((i+1) < lineas.length){
         rowDataNext = lineas[i+1].split(',') //Con esto revisamos si la siguiente columna esta repetida!!
    }
-
    if (rowDataNext[0]==rowData[0]){
-        //cursos:
-            if (cursoAnt==rowData[1]){
+     
+    
+    //cursos:
+
+            if (rowDataNext[1]==rowData[1]){
             }else{
                 seedCursos(contCurso,rowData[1],"curso","none")
             }
-            cursoAnt = rowData[1];
+    
     }else{
+        seedCursos(contCurso,rowData[1],"curso","none")
         seedSedes(contSedes,rowData[0],"sede",cursoArray)
         initCurso()
     }
