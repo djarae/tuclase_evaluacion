@@ -9,5 +9,7 @@
  * 4. Retornar todas las Sedes con 4° Medio que *SI* poseen la *Oferta Tecnología* en sus *Secciones A*
  */
 
-const data = require("./src/input.json");
+const data = require("./src/input-p1.json");
+
 console.log(data);
+console.log(data.hijos[0].hijos[0].hijos[0]);
