@@ -76,13 +76,15 @@ let cursoAnt = "";
 let contCurso = 0;
 for (let i=1;i<lineas.length;i++){
     let rowData = lineas[i].split(',')
-        rowDataNext = lineas[i+1].split(',')
-    
+      
     // console.log("rowdata:::");console.log(rowData[0])
     // console.log("rowdata:::");console.log(rowData[1])
     // console.log("rowdata:::");console.log(rowData[2])
     // console.log("rowdata:::");console.log(rowData[3])
  //sede  
+   if ((i+1) < lineas.length){
+    rowDataNext = lineas[i+1].split(',')
+   }
  
     if (rowDataNext[0]==rowData[0]){
         //cursos:
@@ -106,13 +108,9 @@ for (let i=1;i<lineas.length;i++){
         // console.log( finalArray)
         // console.log( finalArray[0].hijos)
         // console.log(cursoArray)
-
-        for (let t=0; t<finalArray.length; t++){    console.log(
-            finalArray[t])
-        }
-            
+        retornarHijos(finalArray)
         
-        
+       
         contCurso  = 0 ;
         cursoArray = []
         contSedes = contSedes + 1;
@@ -124,7 +122,7 @@ for (let i=1;i<lineas.length;i++){
 
 function retornarHijos(array){
     for (let i=0;i<array.length;i++){
-        console.log(array.hijos[i]);
+        console.log(array[i]);
     }
 }
 
