@@ -73,6 +73,9 @@ let contCurso = 0;
 
 let seccionArray = [];
 let contSeccion = 0;
+
+let ofertaArray = [];
+let contOferta = 0;
 for (let i=1;i<lineas.length;i++){
     let rowData = lineas[i].split(',')
     // console.log("rowdata:::");console.log(rowData[0])
@@ -84,14 +87,20 @@ for (let i=1;i<lineas.length;i++){
    if (rowDataNext[0]==rowData[0]){
     //cursos:
             if (rowDataNext[1]==rowData[1]){
+                    //Secciones
                     if (rowDataNext[2]==rowData[2]){
+                            //oferta
+                                if (rowDataNext[3]==rowData[3]){
+                                }else{
+                                    seedOferta(contOferta,rowData[3],"oferta",[])
+                                }
                     }else{
-                        // seedOferta(contCurso,rowData[1],"curso","none")
+                        seedOferta(contOferta,rowData[3],"oferta",[])
                         seedSeccion(contSeccion,rowData[2],"seccion","none")
-                        //initOferta.....
+                        initOferta()
                     }
             }else{
-                // seedSeccion(contCurso,rowData[1],"curso","none")
+                seedSeccion(contCurso,rowData[2],"seccion",ofertaArray)
                 seedCursos(contCurso,rowData[1],"curso",seccionArray)
                 initSeccion()
             }
@@ -154,13 +163,28 @@ function seedSeccion(cont,rowData,tipo,arrayAux){
     }
     seccionArray[cont]={}
     seccionArray[cont][ "nombre" ] = rowData;
-    seccionArray[cont][ "tipo" ] = tipo
+    seccionArray[cont][ "tipo" ] = tipo;
+    seccionArray[cont][ "hijos" ] = arrayAux;
     contSeccion = contSeccion + 1;
 }
 
+function initOferta(){
+    contOferta  = 0 
+    ofertaArray = []
+}
 
-
-
+function seedOferta(cont,rowData,tipo,arrayAux){
+    ofertaArray[contOferta]={ 
+        "nombre": "",
+        "tipo"  : "",
+        "hijos" : [{}]
+    }
+    ofertaArray[cont]={}
+    ofertaArray[cont][ "nombre" ] =  rowData;
+    ofertaArray[cont][ "tipo" ]   =  tipo
+    ofertaArray[cont][ "hijos" ]  =  [];
+    contOferta = contOferta + 1;
+}
 
 
 // console.log(raiz);
