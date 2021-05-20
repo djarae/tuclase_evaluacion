@@ -70,18 +70,22 @@ let cabecera = lineas[0].split(',')
 // console.log("cabecera");console.log(cabecera)
 
 let seccionAnt = "";
+let contSedes = 0;
 for (let i=1;i<lineas.length;i++){
     let rowData = lineas[i].split(',')
     // console.log("rowdata:::");console.log(rowData[0])
     // console.log("rowdata:::");console.log(rowData[1])
     // console.log("rowdata:::");console.log(rowData[2])
     // console.log("rowdata:::");console.log(rowData[3])
-    finalArray[i]={}
+  
     if (seccionAnt==rowData[0]){
         console.log ("son iguales")
     }else{
-        finalArray[i][ "nombre" ] = rowData[0];
-        finalArray[i][ "tipo" ] = "sede";
+        finalArray[contSedes]={}
+        finalArray[contSedes][ "nombre" ] = rowData[0];
+        finalArray[contSedes][ "tipo" ] = "sede";
+        finalArray[contSedes][ "hijos" ] = [];
+        contSedes = contSedes + 1;
     }
     seccionAnt = rowData[0];
   
