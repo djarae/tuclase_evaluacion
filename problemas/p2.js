@@ -65,10 +65,7 @@ let sedesArray = [];
 let lineas = csv.split('\n');
 let cabecera = lineas[0].split(',')
 
-// console.log("lineas");console.log(lineas)
 //PD ROWDATE 0 SIEMPRE SERA UNA SEDE, 1 SIEMPRE SERA UNA CLASE Y ASI
-// console.log("cabecera");console.log(cabecera)
-
 let sedeAnt = "";
 let contSedes = 0;
 let cursoArray = [];
@@ -76,54 +73,60 @@ let cursoAnt = "";
 let contCurso = 0;
 for (let i=1;i<lineas.length;i++){
     let rowData = lineas[i].split(',')
-      
     // console.log("rowdata:::");console.log(rowData[0])
     // console.log("rowdata:::");console.log(rowData[1])
-    // console.log("rowdata:::");console.log(rowData[2])
-    // console.log("rowdata:::");console.log(rowData[3])
  //sede  
    if ((i+1) < lineas.length){
-    rowDataNext = lineas[i+1].split(',')
+        rowDataNext = lineas[i+1].split(',') //Con esto revisamos si la siguiente columna esta repetida!!
    }
- 
-    if (rowDataNext[0]==rowData[0]){
+
+   if (rowDataNext[0]==rowData[0]){
         //cursos:
             if (cursoAnt==rowData[1]){
             }else{
-                cursoArray[contCurso]={}
-                cursoArray[contCurso][ "nombre" ] = rowData[1];
-                cursoArray[contCurso][ "tipo" ] = "curso";
-                contCurso = contCurso + 1;
+                seedCursos(contCurso,rowData[1],"curso","none")
             }
             cursoAnt = rowData[1];
     }else{
-        sedesArray[contSedes]={ 
-        "nombre": "",
-        "tipo"  : "",
-        "hijos" : [{}]
-    }
-        sedesArray[contSedes][ "nombre" ] = rowData[0];
-        sedesArray[contSedes][ "tipo" ] = "sede";
-        sedesArray[contSedes][ "hijos" ] = (cursoArray);
-
-        contCurso  = 0 ;
-        cursoArray = []
-        contSedes = contSedes + 1;
-      
-        // console.log( retornarHijos(sedesArray));
+        seedSedes(contSedes,rowData[0],"sede",cursoArray)
+        initCurso()
     }
 }
-
-
 retornarHijos(sedesArray)
+
 function retornarHijos(array){
     for (let i=0;i<array.length;i++){
         console.log(array[i]);
     }
 }
 
+function seedSedes(cont,rowData,tipo,arrayAux){
+    sedesArray[contSedes]={ 
+        "nombre": "",
+        "tipo"  : "",
+        "hijos" : [{}]
+    }
+    sedesArray[cont][ "nombre" ] = rowData;
+    sedesArray[cont][ "tipo" ] = tipo;
+    sedesArray[cont][ "hijos" ] = (arrayAux);
+    contSedes = contSedes + 1;
+}
 
-
+function initCurso(){
+    contCurso  = 0 
+    cursoArray = []
+}
+function seedCursos(cont,rowData,tipo,arrayAux){
+    cursoArray[contCurso]={ 
+        "nombre": "",
+        "tipo"  : "",
+        "hijos" : [{}]
+    }
+    cursoArray[cont]={}
+    cursoArray[cont][ "nombre" ] = rowData;
+    cursoArray[cont][ "tipo" ] = tipo
+    contCurso = contCurso + 1;
+}
 
 
 
