@@ -61,7 +61,7 @@ Santiago,2 Básico,B,Lenguaje
 Ñuñoa,1 Básico,A,Matematicas
   `
 
-let finalArray = [];
+let sedesArray = [];
 let lineas = csv.split('\n');
 let cabecera = lineas[0].split(',')
 
@@ -97,34 +97,31 @@ for (let i=1;i<lineas.length;i++){
             }
             cursoAnt = rowData[1];
     }else{
-        finalArray[contSedes]={ 
+        sedesArray[contSedes]={ 
         "nombre": "",
         "tipo"  : "",
         "hijos" : [{}]
     }
-        finalArray[contSedes][ "nombre" ] = rowData[0];
-        finalArray[contSedes][ "tipo" ] = "sede";
-        finalArray[contSedes][ "hijos" ] = (cursoArray);
-        // console.log( finalArray)
-        // console.log( finalArray[0].hijos)
-        // console.log(cursoArray)
-        retornarHijos(finalArray)
-        
-       
+        sedesArray[contSedes][ "nombre" ] = rowData[0];
+        sedesArray[contSedes][ "tipo" ] = "sede";
+        sedesArray[contSedes][ "hijos" ] = (cursoArray);
+
         contCurso  = 0 ;
         cursoArray = []
         contSedes = contSedes + 1;
       
-        // console.log( retornarHijos(finalArray));
+        // console.log( retornarHijos(sedesArray));
     }
 }
 
 
+retornarHijos(sedesArray)
 function retornarHijos(array){
     for (let i=0;i<array.length;i++){
         console.log(array[i]);
     }
 }
+
 
 
 
