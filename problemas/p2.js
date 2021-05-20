@@ -69,29 +69,65 @@ let cabecera = lineas[0].split(',')
 //PD ROWDATE 0 SIEMPRE SERA UNA SEDE, 1 SIEMPRE SERA UNA CLASE Y ASI
 // console.log("cabecera");console.log(cabecera)
 
-let seccionAnt = "";
+let sedeAnt = "";
 let contSedes = 0;
+let cursoArray = [];
+let cursoAnt = "";
+let contCurso = 0;
 for (let i=1;i<lineas.length;i++){
     let rowData = lineas[i].split(',')
+        rowDataNext = lineas[i+1].split(',')
+    
     // console.log("rowdata:::");console.log(rowData[0])
     // console.log("rowdata:::");console.log(rowData[1])
     // console.log("rowdata:::");console.log(rowData[2])
     // console.log("rowdata:::");console.log(rowData[3])
-  
-    if (seccionAnt==rowData[0]){
-        console.log ("son iguales")
+ //sede  
+ 
+    if (rowDataNext[0]==rowData[0]){
+        //cursos:
+            if (cursoAnt==rowData[1]){
+            }else{
+                cursoArray[contCurso]={}
+                cursoArray[contCurso][ "nombre" ] = rowData[1];
+                cursoArray[contCurso][ "tipo" ] = "curso";
+                contCurso = contCurso + 1;
+            }
+            cursoAnt = rowData[1];
     }else{
-        finalArray[contSedes]={}
+        finalArray[contSedes]={ 
+        "nombre": "",
+        "tipo"  : "",
+        "hijos" : [{}]
+    }
         finalArray[contSedes][ "nombre" ] = rowData[0];
         finalArray[contSedes][ "tipo" ] = "sede";
-        finalArray[contSedes][ "hijos" ] = [];
+        finalArray[contSedes][ "hijos" ] = (cursoArray);
+        // console.log( finalArray)
+        // console.log( finalArray[0].hijos)
+        // console.log(cursoArray)
+
+        for (let t=0; t<finalArray.length; t++){    console.log(
+            finalArray[t])
+        }
+            
+        
+        
+        contCurso  = 0 ;
+        cursoArray = []
         contSedes = contSedes + 1;
+      
+        // console.log( retornarHijos(finalArray));
     }
-    seccionAnt = rowData[0];
-  
-    
 }
-console.log(finalArray);
+
+
+function retornarHijos(array){
+    for (let i=0;i<array.length;i++){
+        console.log(array.hijos[i]);
+    }
+}
+
 
 
 

@@ -12,5 +12,11 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "csv-parse": "^4.15.4",
+    "fs": "0.0.1-security",
+    "neat-csv": "^6.0.1",
+    "node-csv": "^0.1.2"
+  }
 }

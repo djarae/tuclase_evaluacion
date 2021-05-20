@@ -8,10 +8,17 @@
  */
 const data = require("./src/input-p1.json");
 
-console.log(returnNoSons());
-console.log(returnEspecific(4));
-console.log(contabilization());
-console.log(ejerc4());
+// console.log(data.hijos);
+
+// console.log(data.hijos);
+console.log(data.hijos[0]);
+
+
+
+// console.log(returnNoSons());
+// console.log(returnEspecific(4));
+// console.log(contabilization());
+// console.log(ejerc4());
 
 function returnNoSons(){
     //NOTA: I representa la palabra : INDEX
