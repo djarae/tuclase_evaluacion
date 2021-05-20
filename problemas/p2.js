@@ -66,11 +66,13 @@ let lineas = csv.split('\n');
 let cabecera = lineas[0].split(',')
 
 //PD ROWDATE 0 SIEMPRE SERA UNA SEDE, 1 SIEMPRE SERA UNA CLASE Y ASI
-let sedeAnt = "";
 let contSedes = 0;
+
 let cursoArray = [];
-let cursoAnt = "";
 let contCurso = 0;
+
+let seccionArray = [];
+let contSeccion = 0;
 for (let i=1;i<lineas.length;i++){
     let rowData = lineas[i].split(',')
     // console.log("rowdata:::");console.log(rowData[0])
@@ -80,13 +82,18 @@ for (let i=1;i<lineas.length;i++){
         rowDataNext = lineas[i+1].split(',') //Con esto revisamos si la siguiente columna esta repetida!!
    }
    if (rowDataNext[0]==rowData[0]){
-     
-    
     //cursos:
-
             if (rowDataNext[1]==rowData[1]){
+                    if (rowDataNext[2]==rowData[2]){
+                    }else{
+                        // seedOferta(contCurso,rowData[1],"curso","none")
+                        seedSeccion(contSeccion,rowData[2],"seccion","none")
+                        //initOferta.....
+                    }
             }else{
-                seedCursos(contCurso,rowData[1],"curso","none")
+                // seedSeccion(contCurso,rowData[1],"curso","none")
+                seedCursos(contCurso,rowData[1],"curso",seccionArray)
+                initSeccion()
             }
     
     }else{
@@ -100,6 +107,9 @@ retornarHijos(sedesArray)
 function retornarHijos(array){
     for (let i=0;i<array.length;i++){
         console.log(array[i]);
+        for (let j=0;j<array[i].hijos.length;j++){
+            console.log(array[i].hijos[j]);
+        }
     }
 }
 
@@ -128,8 +138,26 @@ function seedCursos(cont,rowData,tipo,arrayAux){
     cursoArray[cont]={}
     cursoArray[cont][ "nombre" ] = rowData;
     cursoArray[cont][ "tipo" ] = tipo
+    cursoArray[cont][ "hijos" ] = arrayAux
     contCurso = contCurso + 1;
 }
+
+function initSeccion(){
+    contSeccion  = 0 
+    seccionArray = []
+}
+function seedSeccion(cont,rowData,tipo,arrayAux){
+    seccionArray[contSeccion]={ 
+        "nombre": "",
+        "tipo"  : "",
+        "hijos" : [{}]
+    }
+    seccionArray[cont]={}
+    seccionArray[cont][ "nombre" ] = rowData;
+    seccionArray[cont][ "tipo" ] = tipo
+    contSeccion = contSeccion + 1;
+}
+
 
 
 
