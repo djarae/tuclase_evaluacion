@@ -4,11 +4,12 @@
  * Genera un script/algoritmo/función que sea capaz de transformar los datos de input-p2.csv
  * en un arból de estructura similar al problema de p1 utilizando la estructura de Nodo.js
  */
-
+//imports:
 const Nodo = require("./src/Nodo");
 const raiz = new Nodo("root", "Raíz",[]);
 
-//Usamos la misma data del archivo csv
+
+//Poblamos el archivo csv:
 let  csv = `Sede,Curso,Seccion,Oferta
 Las Condes,Pre-Kinder,A,Playgroup
 Las Condes,Pre-Kinder,A,Inglés
@@ -61,74 +62,18 @@ Santiago,2 Básico,B,Lenguaje
 Ñuñoa,1 Básico,A,Matematicas
   `
 
+
+
+//vars:
 let sedesArray = [];
 let lineas = csv.split('\n');
-let cabecera = lineas[0].split(',')
-
-//PD ROWDATE 0 SIEMPRE SERA UNA SEDE, 1 SIEMPRE SERA UNA CLASE Y ASI
 let contSedes = 0;
-
 let cursoArray = [];
 let contCurso = 0;
-
 let seccionArray = [];
 let contSeccion = 0;
-
 let ofertaArray = [];
 let contOferta = 0;
-
-for (let i=1;i<lineas.length;i++){
-    let rowData = lineas[i].split(',')
-//sede  
-if ((i+1) < lineas.length){
-        rowDataNext = lineas[i+1].split(',') //Con esto revisamos si la siguiente columna esta repetida!!
-}
-    if (rowDataNext[0]==rowData[0]){
-        //cursos:
-                if (rowDataNext[1]==rowData[1]){
-                        //Secciones
-                        if (rowDataNext[2]==rowData[2]){
-                                //oferta
-                                    if (rowDataNext[3]==rowData[3]){
-                                    }else{
-                                        seedOferta(contOferta,rowData[3],"oferta",[])
-                                    }
-                        }else{
-                            seedOferta(contOferta,rowData[3],"oferta",[])
-                            seedSeccion(contSeccion,rowData[2],"seccion",ofertaArray)
-                            initOferta()
-                        }
-                }else{
-                    seedSeccion(contCurso,rowData[2],"seccion",ofertaArray)
-                    seedCursos(contCurso,rowData[1],"curso",seccionArray)
-                    initSeccion()
-                }
-        
-        }else{
-            seedCursos(contCurso,rowData[1],"curso",seccionArray)
-            raiz.hijos[contSedes] =   seedSedes(contSedes,rowData[0],"sede",cursoArray)
-            initCurso()
-        }
-}
-
-
-
-retornarHijos(raiz)
-// console.log(raiz.hijos[0].hijos)  //funciona!!
-function retornarHijos(array){
-    // console.log(array)
-    for (let i=0;i<array.hijos.length;i++){
-        console.log(array.hijos[i]);
-        console.log("end2222")
-        for (let j=0;j<array.hijos[i].hijos[j].length;j++){
-            console.log(array.hijos[i].hijos[j]);
-            console.log("endd")
-            // for (let k=0;k<array[i].hijos[j].hijos.length;k++){
-            //     console.log(array[i].hijos[j].hijos[k]);
-            // }
-        }
-    }
-}
 
 //Funciones:
 function seedSedes(cont,rowData,tipo,arrayAux){
@@ -197,3 +142,65 @@ function seedOferta(cont,rowData,tipo,arrayAux){
     ofertaArray[cont][ "hijos" ]  =  [];
     contOferta = contOferta + 1;
 }
+
+
+
+//Codigo principal:
+//Creamos un array que usaremos para poblar el objeto raiz:
+    for (let i=1;i<lineas.length;i++){
+        let rowData = lineas[i].split(',')
+    //sede  
+    if ((i+1) < lineas.length){
+            rowDataNext = lineas[i+1].split(',') 
+    }
+        if (rowDataNext[0]==rowData[0]){
+            //cursos:
+                    if (rowDataNext[1]==rowData[1]){
+                            //Secciones
+                            if (rowDataNext[2]==rowData[2]){
+                                    //oferta
+                                        if (rowDataNext[3]==rowData[3]){
+                                        }else{
+                                            seedOferta(contOferta,rowData[3],"oferta",[])
+                                        }
+                            }else{
+                                seedOferta(contOferta,rowData[3],"oferta",[])
+                                seedSeccion(contSeccion,rowData[2],"seccion",ofertaArray)
+                                initOferta()
+                            }
+                    }else{
+                        seedSeccion(contCurso,rowData[2],"seccion",ofertaArray)
+                        seedCursos(contCurso,rowData[1],"curso",seccionArray)
+                        initSeccion()
+                    }
+            
+            }else{
+                seedCursos(contCurso,rowData[1],"curso",seccionArray)
+                raiz.hijos[contSedes] =   seedSedes(contSedes,rowData[0],"sede",cursoArray)
+                initCurso()
+            }
+    }
+
+
+
+//Comprobamos que funcione:
+console.log(raiz)
+console.log(raiz.hijos[0].hijos)             
+console.log(raiz.hijos[0].hijos[0])      
+console.log(raiz.hijos[0].hijos[0].hijos[0]) 
+console.log(raiz.hijos[1].hijos)             
+console.log(raiz.hijos[1].hijos[1])      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
