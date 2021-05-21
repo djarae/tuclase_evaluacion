@@ -8,7 +8,7 @@
 const Nodo = require("./src/Nodo");
 const raiz = new Nodo("root", "Raíz",[]);
 
-
+//Usamos la misma data del archivo csv
 let  csv = `Sede,Curso,Seccion,Oferta
 Las Condes,Pre-Kinder,A,Playgroup
 Las Condes,Pre-Kinder,A,Inglés
@@ -78,8 +78,6 @@ let ofertaArray = [];
 let contOferta = 0;
 for (let i=1;i<lineas.length;i++){
     let rowData = lineas[i].split(',')
-    // console.log("rowdata:::");console.log(rowData[0])
-    // console.log("rowdata:::");console.log(rowData[1])
  //sede  
    if ((i+1) < lineas.length){
         rowDataNext = lineas[i+1].split(',') //Con esto revisamos si la siguiente columna esta repetida!!
@@ -96,7 +94,7 @@ for (let i=1;i<lineas.length;i++){
                                 }
                     }else{
                         seedOferta(contOferta,rowData[3],"oferta",[])
-                        seedSeccion(contSeccion,rowData[2],"seccion","none")
+                        seedSeccion(contSeccion,rowData[2],"seccion",ofertaArray)
                         initOferta()
                     }
             }else{
@@ -106,7 +104,7 @@ for (let i=1;i<lineas.length;i++){
             }
     
     }else{
-        seedCursos(contCurso,rowData[1],"curso","none")
+        seedCursos(contCurso,rowData[1],"curso",seccionArray)
         seedSedes(contSedes,rowData[0],"sede",cursoArray)
         initCurso()
     }
@@ -118,10 +116,15 @@ function retornarHijos(array){
         console.log(array[i]);
         for (let j=0;j<array[i].hijos.length;j++){
             console.log(array[i].hijos[j]);
+            for (let k=0;k<array[i].hijos[j].hijos.length;k++){
+                console.log(array[i].hijos[j].hijos[k]);
+            }
         }
     }
 }
 
+
+//Funciones:
 function seedSedes(cont,rowData,tipo,arrayAux){
     sedesArray[contSedes]={ 
         "nombre": "",
@@ -185,6 +188,5 @@ function seedOferta(cont,rowData,tipo,arrayAux){
     ofertaArray[cont][ "hijos" ]  =  [];
     contOferta = contOferta + 1;
 }
-
 
 // console.log(raiz);
