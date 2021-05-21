@@ -106,8 +106,7 @@ if ((i+1) < lineas.length){
         
         }else{
             seedCursos(contCurso,rowData[1],"curso",seccionArray)
-            seedSedes(contSedes,rowData[0],"sede",cursoArray)
-           
+            raiz.hijos[contSedes] =   seedSedes(contSedes,rowData[0],"sede",cursoArray)
             initCurso()
         }
 }
@@ -116,7 +115,6 @@ if ((i+1) < lineas.length){
 
 retornarHijos(raiz)
 // console.log(raiz.hijos[0].hijos)  //funciona!!
-retornarHijos(sedesArray)
 function retornarHijos(array){
     console.log(array);
     for (let i=0;i<array.length;i++){
@@ -140,12 +138,10 @@ function seedSedes(cont,rowData,tipo,arrayAux){
     sedesArray[cont][ "nombre" ] = rowData;
     sedesArray[cont][ "tipo" ] = tipo;
     sedesArray[cont][ "hijos" ] = (arrayAux);
-
-    raiz.hijos[cont] =   sedesArray[cont]
-    
-
-
+  
     contSedes = contSedes + 1;
+
+    return   sedesArray[cont]
 }
 
 function initCurso(){
@@ -162,7 +158,6 @@ function seedCursos(cont,rowData,tipo,arrayAux){
     cursoArray[cont][ "nombre" ] = rowData;
     cursoArray[cont][ "tipo" ] = tipo
     cursoArray[cont][ "hijos" ] = arrayAux
- 
     contCurso = contCurso + 1;
 }
 
@@ -200,5 +195,3 @@ function seedOferta(cont,rowData,tipo,arrayAux){
     ofertaArray[cont][ "hijos" ]  =  [];
     contOferta = contOferta + 1;
 }
-
-// console.log(raiz);
