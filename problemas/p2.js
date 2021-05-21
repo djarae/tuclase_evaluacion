@@ -116,14 +116,16 @@ if ((i+1) < lineas.length){
 retornarHijos(raiz)
 // console.log(raiz.hijos[0].hijos)  //funciona!!
 function retornarHijos(array){
-    console.log(array);
-    for (let i=0;i<array.length;i++){
-        console.log(array[i]);
-        for (let j=0;j<array[i].hijos.length;j++){
-            console.log(array[i].hijos[j]);
-            for (let k=0;k<array[i].hijos[j].hijos.length;k++){
-                console.log(array[i].hijos[j].hijos[k]);
-            }
+    // console.log(array)
+    for (let i=0;i<array.hijos.length;i++){
+        console.log(array.hijos[i]);
+        console.log("end2222")
+        for (let j=0;j<array.hijos[i].hijos[j].length;j++){
+            console.log(array.hijos[i].hijos[j]);
+            console.log("endd")
+            // for (let k=0;k<array[i].hijos[j].hijos.length;k++){
+            //     console.log(array[i].hijos[j].hijos[k]);
+            // }
         }
     }
 }
