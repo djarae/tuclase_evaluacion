@@ -76,42 +76,49 @@ let contSeccion = 0;
 
 let ofertaArray = [];
 let contOferta = 0;
+
 for (let i=1;i<lineas.length;i++){
     let rowData = lineas[i].split(',')
- //sede  
-   if ((i+1) < lineas.length){
+//sede  
+if ((i+1) < lineas.length){
         rowDataNext = lineas[i+1].split(',') //Con esto revisamos si la siguiente columna esta repetida!!
-   }
-   if (rowDataNext[0]==rowData[0]){
-    //cursos:
-            if (rowDataNext[1]==rowData[1]){
-                    //Secciones
-                    if (rowDataNext[2]==rowData[2]){
-                            //oferta
-                                if (rowDataNext[3]==rowData[3]){
-                                }else{
-                                    seedOferta(contOferta,rowData[3],"oferta",[])
-                                }
-                    }else{
-                        seedOferta(contOferta,rowData[3],"oferta",[])
-                        seedSeccion(contSeccion,rowData[2],"seccion",ofertaArray)
-                        initOferta()
-                    }
-            }else{
-                seedSeccion(contCurso,rowData[2],"seccion",ofertaArray)
-                seedCursos(contCurso,rowData[1],"curso",seccionArray)
-                initSeccion()
-            }
-    
-    }else{
-        seedCursos(contCurso,rowData[1],"curso",seccionArray)
-        seedSedes(contSedes,rowData[0],"sede",cursoArray)
-        initCurso()
-    }
 }
-retornarHijos(sedesArray)
+    if (rowDataNext[0]==rowData[0]){
+        //cursos:
+                if (rowDataNext[1]==rowData[1]){
+                        //Secciones
+                        if (rowDataNext[2]==rowData[2]){
+                                //oferta
+                                    if (rowDataNext[3]==rowData[3]){
+                                    }else{
+                                        seedOferta(contOferta,rowData[3],"oferta",[])
+                                    }
+                        }else{
+                            seedOferta(contOferta,rowData[3],"oferta",[])
+                            seedSeccion(contSeccion,rowData[2],"seccion",ofertaArray)
+                            initOferta()
+                        }
+                }else{
+                    seedSeccion(contCurso,rowData[2],"seccion",ofertaArray)
+                    seedCursos(contCurso,rowData[1],"curso",seccionArray)
+                    initSeccion()
+                }
+        
+        }else{
+            seedCursos(contCurso,rowData[1],"curso",seccionArray)
+            seedSedes(contSedes,rowData[0],"sede",cursoArray)
+           
+            initCurso()
+        }
+}
 
+
+
+retornarHijos(raiz)
+// console.log(raiz.hijos[0].hijos)  //funciona!!
+retornarHijos(sedesArray)
 function retornarHijos(array){
+    console.log(array);
     for (let i=0;i<array.length;i++){
         console.log(array[i]);
         for (let j=0;j<array[i].hijos.length;j++){
@@ -123,7 +130,6 @@ function retornarHijos(array){
     }
 }
 
-
 //Funciones:
 function seedSedes(cont,rowData,tipo,arrayAux){
     sedesArray[contSedes]={ 
@@ -134,6 +140,11 @@ function seedSedes(cont,rowData,tipo,arrayAux){
     sedesArray[cont][ "nombre" ] = rowData;
     sedesArray[cont][ "tipo" ] = tipo;
     sedesArray[cont][ "hijos" ] = (arrayAux);
+
+    raiz.hijos[cont] =   sedesArray[cont]
+    
+
+
     contSedes = contSedes + 1;
 }
 
@@ -151,6 +162,7 @@ function seedCursos(cont,rowData,tipo,arrayAux){
     cursoArray[cont][ "nombre" ] = rowData;
     cursoArray[cont][ "tipo" ] = tipo
     cursoArray[cont][ "hijos" ] = arrayAux
+ 
     contCurso = contCurso + 1;
 }
 
