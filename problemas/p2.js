@@ -147,12 +147,6 @@ Santiago,2 Básico,B,Lenguaje
     }
           
     }
-    // console.log(raiz)
-    // console.log(raiz.hijos[0].hijos)   
-    // console.log(raiz.hijos[0])   
-
-    console.log(raiz.hijos[0].hijos[0].hijos)  
-    console.log(raiz.hijos[0].hijos[0].hijos[0].hijos)  
 
  }
 
