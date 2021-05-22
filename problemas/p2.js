@@ -69,15 +69,18 @@ Santiago,2 Básico,B,Lenguaje
 //Functions
  function readRoot(root,csv){
     let lineas = csv.split('\n');
+    contSede = 0;
     for (let i=1;i<lineas.length;i++){
         // console.log(lineas)
         let rowData = lineas[i].split(',')
         rowDataAnt = lineas[i-1].split(',') 
-   
         if (rowDataAnt[0]!=rowData[0]){
-          console.log(rowDataAnt)
+          contSede++
+          if (i+1<lineas.length){root.hijos[contSede-1]=rowData[0]}
+          // console.log(rowDataAnt)
         }
     }
+    console.log(root)
  }
 
 
