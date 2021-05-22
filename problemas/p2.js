@@ -8,6 +8,12 @@
 const Nodo = require("./src/Nodo");
 const raiz = new Nodo("raiz", "Raíz",[]);
 
+//vars
+contSede = 0;
+contSedeAnt = 0;
+contCurso = 0;
+swCurso= 0;
+
 
 //Poblamos el archivo csv:
 let  csv = `Sede,Curso,Seccion,Oferta
@@ -67,34 +73,53 @@ Santiago,2 Básico,B,Lenguaje
 
 
 //Functions
+
  function generateJson(){
     let lineas = csv.split('\n');
-    contSede = 0;
     for (let i=1;i<lineas.length;i++){
         // console.log(lineas)
         let rowData = lineas[i].split(',')
-        if ((i+1) < lineas.length){
+          rowDataAnt = lineas[i-1].split(',') 
+        if  (i+1<lineas.length){
           rowDataNext = lineas[i+1].split(',') 
         }
-        if (rowDataNext[0]!=rowData[0]){
+        if (rowDataAnt[0]!=rowData[0]){
           if (i+1<lineas.length){
-            let auxSede = new Nodo(rowData[0], "Sede",[]);
-            raiz.hijos[contSede] = []
-            raiz.hijos[contSede].nombre = auxSede.nombre
-            raiz.hijos[contSede].tipo   = auxSede.tipo
-            raiz.hijos[contSede].hijos  = auxSede.hijos
+              let auxSede = new Nodo(rowData[0], "Sede",[]);
+              raiz.hijos[contSede] = []
+              raiz.hijos[contSede].nombre = auxSede.nombre
+              raiz.hijos[contSede].tipo   = auxSede.tipo
+              raiz.hijos[contSede].hijos  = auxSede.hijos
+              contSedeAnt=contSede
+              contSede++
+              contCurso=0
           }
-          contSede++
-          // console.log(rowDataNext)
         }
         else
         {
-          
-
+          //Como antes no se repiten las sedes procedemos a evaluar el curso si es que se repite
+          if (rowDataAnt[1]!=rowData[1]){ 
+            if (i+1<lineas.length){
+              console.log("entro")
+              let auxCurso = new Nodo(rowData[1], "Curso",[]);
+              raiz.hijos[contSedeAnt].hijos[contCurso]  = []
+              raiz.hijos[contSedeAnt].hijos[contCurso].nombre = auxCurso.nombre
+              raiz.hijos[contSedeAnt].hijos[contCurso].tipo   = auxCurso.tipo
+              raiz.hijos[contSedeAnt].hijos[contCurso].hijos  = auxCurso.hijos 
+              contCurso++
+            }
+          }
 
         }
     }
-    console.log(raiz)
+    // console.log(raiz)
+    console.log(raiz.hijos[0])  
+    console.log(raiz.hijos[1])     
+    console.log(raiz.hijos[2])     
+    console.log(raiz.hijos[3])     
+    console.log(raiz.hijos[4])                
+    // console.log(raiz.hijos[0].hijos)   
+
  }
 
 
