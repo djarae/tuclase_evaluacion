@@ -10,7 +10,10 @@ const data = require("./src/input-p1.json");
 const Nodo = require("./src/Nodo");
 
 // console.log(returnNoSons());
-console.log(noSonsRecursivo(data, 0 ,(raiz = new Nodo("raiz", "Raíz",[]))  ));
+finalNode = new Nodo("raiz", "Raíz",[])
+console.log(noSonsRecursivo(data));
+console.log(  (noSonsRecursivo(data)).hijos  );
+
 // console.log(returnEspecific(4));
 // console.log(contabilization());
 // console.log(ejerc4());
@@ -47,17 +50,27 @@ function cl(elemento){
     console.log(elemento)
 }
 
-function noSonsRecursivo(obcjetD,cont,finalNode){
+function noSonsRecursivo(obcjetD){
     for (let i=0;i<obcjetD.hijos.length;i++){
-        if (obcjetD.hijos.length==0){
-            // cl(obcjetD.hijos[i])
-        }
-        else{
-            cl(obcjetD.hijos[i])
-            noSonsRecursivo(obcjetD.hijos[i],(cont+1),finalNode)
-        }
+      if  (obcjetD.hijos[i].hijos.length==0){
+        cl(obcjetD.hijos[i])
+      }else{
+        // cl(obcjetD.hijos[i])
+        noSonsRecursivo(obcjetD.hijos[i])
+      }
+        
     }
+    return  finalNode
 }
+
+function printJson(obcjetD){
+    for (let i=0;i<obcjetD.hijos.length;i++){
+            cl(obcjetD.hijos[i])
+            noSonsRecursivo(obcjetD.hijos[i])
+    }
+    return  finalNode
+}
+
 
 
 
