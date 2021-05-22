@@ -6,7 +6,7 @@
  */
 //imports:
 const Nodo = require("./src/Nodo");
-const raiz = new Nodo("root", "Raíz",[]);
+const raiz = new Nodo("raiz", "Raíz",[]);
 
 
 //Poblamos el archivo csv:
@@ -62,25 +62,39 @@ Santiago,2 Básico,B,Lenguaje
 Ñuñoa,1 Básico,A,Matematicas
   `
 
-  readRoot(raiz,csv);
+  generateJson();
 //vars
 
 
 //Functions
- function readRoot(root,csv){
+ function generateJson(){
     let lineas = csv.split('\n');
     contSede = 0;
     for (let i=1;i<lineas.length;i++){
         // console.log(lineas)
         let rowData = lineas[i].split(',')
-        rowDataAnt = lineas[i-1].split(',') 
-        if (rowDataAnt[0]!=rowData[0]){
+        if ((i+1) < lineas.length){
+          rowDataNext = lineas[i+1].split(',') 
+        }
+        if (rowDataNext[0]!=rowData[0]){
+          if (i+1<lineas.length){
+            let auxSede = new Nodo(rowData[0], "Sede",[]);
+            raiz.hijos[contSede] = []
+            raiz.hijos[contSede].nombre = auxSede.nombre
+            raiz.hijos[contSede].tipo   = auxSede.tipo
+            raiz.hijos[contSede].hijos  = auxSede.hijos
+          }
           contSede++
-          if (i+1<lineas.length){root.hijos[contSede-1]=rowData[0]}
-          // console.log(rowDataAnt)
+          // console.log(rowDataNext)
+        }
+        else
+        {
+          
+
+
         }
     }
-    console.log(root)
+    console.log(raiz)
  }
 
 
