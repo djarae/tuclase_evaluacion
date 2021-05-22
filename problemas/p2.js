@@ -86,6 +86,7 @@ Santiago,2 Básico,B,Lenguaje
         if  (i+1<lineas.length){
           rowDataNext = lineas[i+1].split(',') 
         }
+
         if (rowDataAnt[0]!=rowData[0]){
           if (i+1<lineas.length){
               let auxSede = new Nodo(rowData[0], "Sede",[]);
@@ -98,40 +99,39 @@ Santiago,2 Básico,B,Lenguaje
               contCurso=0
           }
         }
-        else
-        {
-            //Como antes no se repiten las sedes procedemos a evaluar el curso si es que se repite
-            if (rowDataAnt[1]!=rowData[1]){ 
-              if (i+1<lineas.length){
-                let auxCurso = new Nodo(rowData[1], "Curso",[]);
-                raiz.hijos[contSedeAnt].hijos[contCurso]  = []
-                raiz.hijos[contSedeAnt].hijos[contCurso].nombre = auxCurso.nombre
-                raiz.hijos[contSedeAnt].hijos[contCurso].tipo   = auxCurso.tipo
-                raiz.hijos[contSedeAnt].hijos[contCurso].hijos  = auxCurso.hijos 
-                contCurso++
-                contCursoAnt=contCurso
-                contSeccion=0
-              }
-            }
-            else
-            {
-                  if (rowDataAnt[2]!=rowData[2]){ 
-                    if (i+1<lineas.length){
-                      let auxSeccion = new Nodo(rowData[2], "Seccion",[]);
-                      console.log("se cae")
-                      // raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccion]   = []
-                      // raiz.hijos[contSedeAnt].hijos[contCurso].hijos[contSeccion].nombre = auxSeccion.nombre
-                      // raiz.hijos[contSedeAnt].hijos[contCurso].hijos[contSeccion].tipo   = auxSeccion.tipo
-                      // raiz.hijos[contSedeAnt].hijos[contCurso].hijos[contSeccion].hijos  = auxSeccion.hijos 
-                      contSeccion++
-                    }
-
-                }
-            }
+        //Como antes no se repiten las sedes procedemos a evaluar el curso si es que se repite
+        if (rowDataAnt[1]!=rowData[1]){ 
+          if (i+1<lineas.length){
+            let auxCurso = new Nodo(rowData[1], "Curso",[]);
+            raiz.hijos[contSedeAnt].hijos[contCurso]  = []
+            raiz.hijos[contSedeAnt].hijos[contCurso].nombre = auxCurso.nombre
+            raiz.hijos[contSedeAnt].hijos[contCurso].tipo   = auxCurso.tipo
+            raiz.hijos[contSedeAnt].hijos[contCurso].hijos  = auxCurso.hijos 
+            contCursoAnt=contCurso
+            contCurso++
+            contSeccion=0
+          }
         }
+      
+        if (rowDataAnt[2]!=rowData[2]){ 
+          if (i+1<lineas.length){
+            let auxSeccion = new Nodo(rowData[2], "Seccion",[]);
+            console.log("se cae")
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccion]   = []
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccion].nombre = auxSeccion.nombre
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccion].tipo   = auxSeccion.tipo
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccion].hijos  = auxSeccion.hijos 
+            contSeccion++
+          }
+
+      }
+          
     }
     // console.log(raiz)
-    console.log(raiz.hijos[0].hijos)   
+    // console.log(raiz.hijos[0].hijos)   
+    // console.log(raiz.hijos[0])   
+
+    console.log(raiz.hijos[0].hijos[0].hijos)  
 
  }
 
