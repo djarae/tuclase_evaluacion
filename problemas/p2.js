@@ -18,6 +18,9 @@ contCursoAnt = 0;
 contSeccion = 0;
 contSeccionAnt = 0 ;
 
+contOferta = 0;
+contOfertaAnt = 0 ;
+
 //Poblamos el archivo csv:
 let  csv = `Sede,Curso,Seccion,Oferta
 Las Condes,Pre-Kinder,A,Playgroup
@@ -116,15 +119,32 @@ Santiago,2 Básico,B,Lenguaje
         if (rowDataAnt[2]!=rowData[2]){ 
           if (i+1<lineas.length){
             let auxSeccion = new Nodo(rowData[2], "Seccion",[]);
-            console.log("se cae")
             raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccion]   = []
             raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccion].nombre = auxSeccion.nombre
             raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccion].tipo   = auxSeccion.tipo
             raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccion].hijos  = auxSeccion.hijos 
+            contSeccionAnt=contSeccion
             contSeccion++
+            contOferta=0
           }
-
       }
+
+      if (rowDataAnt[3]!=rowData[3]){ 
+        if (i+1<lineas.length){
+          let auxOferta = new Nodo(rowData[3], "Oferta",[]);
+          console.log("entro cant");console.log(contOferta)
+          if (typeof  raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccionAnt] === 'undefined') {
+            console.log("undefined")
+          }
+          else{
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccionAnt].hijos[contOferta]   = []
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccionAnt].hijos[contOferta].nombre = auxOferta.nombre
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccionAnt].hijos[contOferta].tipo   = auxOferta.tipo
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccionAnt].hijos[contOferta].hijos  = auxOferta.hijos 
+          }
+          contOferta++
+        }
+    }
           
     }
     // console.log(raiz)
@@ -132,6 +152,7 @@ Santiago,2 Básico,B,Lenguaje
     // console.log(raiz.hijos[0])   
 
     console.log(raiz.hijos[0].hijos[0].hijos)  
+    console.log(raiz.hijos[0].hijos[0].hijos[0].hijos)  
 
  }
 
