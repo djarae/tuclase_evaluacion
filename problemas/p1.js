@@ -7,11 +7,13 @@
  * 4. Retornar todas las Sedes con 4° Medio que *SI* poseen la *Oferta Tecnología* en sus *Secciones A*
  */
 const data = require("./src/input-p1.json");
+const Nodo = require("./src/Nodo");
 
-console.log(returnNoSons());
-console.log(returnEspecific(4));
-console.log(contabilization());
-console.log(ejerc4());
+// console.log(returnNoSons());
+console.log(noSonsRecursivo(data, 0 ,(raiz = new Nodo("raiz", "Raíz",[]))  ));
+// console.log(returnEspecific(4));
+// console.log(contabilization());
+// console.log(ejerc4());
 
 function returnNoSons(){
     
@@ -39,6 +41,22 @@ function returnNoSons(){
         }
     }
     return arrayFinal
+}
+
+function cl(elemento){
+    console.log(elemento)
+}
+
+function noSonsRecursivo(obcjetD,cont,finalNode){
+    for (let i=0;i<obcjetD.hijos.length;i++){
+        if (obcjetD.hijos.length==0){
+            // cl(obcjetD.hijos[i])
+        }
+        else{
+            cl(obcjetD.hijos[i])
+            noSonsRecursivo(obcjetD.hijos[i],(cont+1),finalNode)
+        }
+    }
 }
 
 
