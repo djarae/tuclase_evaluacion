@@ -11,8 +11,8 @@ const Nodo = require("./src/Nodo");
 
 // console.log(returnNoSons());
 finalNode = new Nodo("raiz", "Raíz",[])
-console.log(noSonsRecursivo(data));
-console.log(  (noSonsRecursivo(data)).hijos  );
+cont = 0 
+cl(noSonsRecursivo(data,cont)  );
 
 // console.log(returnEspecific(4));
 // console.log(contabilization());
@@ -53,9 +53,9 @@ function cl(elemento){
 function noSonsRecursivo(obcjetD){
     for (let i=0;i<obcjetD.hijos.length;i++){
       if  (obcjetD.hijos[i].hijos.length==0){
-        cl(obcjetD.hijos[i])
+        finalNode[cont] = obcjetD.hijos[i]
+        cont++
       }else{
-        // cl(obcjetD.hijos[i])
         noSonsRecursivo(obcjetD.hijos[i])
       }
         
@@ -68,7 +68,7 @@ function printJson(obcjetD){
             cl(obcjetD.hijos[i])
             noSonsRecursivo(obcjetD.hijos[i])
     }
-    return  finalNode
+    return 0
 }
 
 
