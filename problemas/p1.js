@@ -12,14 +12,12 @@ const Nodo = require("./src/Nodo");
 // console.log(returnNoSons());
 finalNode = new Nodo("raiz", "Raíz",[])
 cont = 0 
-cl(noSonsRecursivo(data,cont)  );
-
-// console.log(returnEspecific(4));
-// console.log(contabilization());
-// console.log(ejerc4());
+console.log(noSonsRecursivo(data,cont)  );
+console.log(returnEspecific(4));
+console.log(contabilization());
+console.log(ejerc4());
 
 function returnNoSons(){
-    
     //NOTA: I representa la palabra : INDEX
     //Recorremos cada arreglo y buscamos el que tenga un largo "0" de arreglos
     let arrayFinal = []
