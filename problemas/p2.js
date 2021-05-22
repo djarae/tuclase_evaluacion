@@ -62,137 +62,23 @@ Santiago,2 Básico,B,Lenguaje
 Ñuñoa,1 Básico,A,Matematicas
   `
 
+  readRoot(raiz,csv);
+//vars
 
 
-//vars:
-let sedesArray = [];
-let lineas = csv.split('\n');
-let contSedes = 0;
-let cursoArray = [];
-let contCurso = 0;
-let seccionArray = [];
-let contSeccion = 0;
-let ofertaArray = [];
-let contOferta = 0;
-
-//Funciones:
-function seedSedes(cont,rowData,tipo,arrayAux){
-    sedesArray[contSedes]={ 
-        "nombre": "",
-        "tipo"  : "",
-        "hijos" : [{}]
-    }
-    sedesArray[cont][ "nombre" ] = rowData;
-    sedesArray[cont][ "tipo" ] = tipo;
-    sedesArray[cont][ "hijos" ] = (arrayAux);
-  
-    contSedes = contSedes + 1;
-
-    return   sedesArray[cont]
-}
-
-function initCurso(){
-    contCurso  = 0 
-    cursoArray = []
-}
-function seedCursos(cont,rowData,tipo,arrayAux){
-    cursoArray[contCurso]={ 
-        "nombre": "",
-        "tipo"  : "",
-        "hijos" : [{}]
-    }
-    cursoArray[cont]={}
-    cursoArray[cont][ "nombre" ] = rowData;
-    cursoArray[cont][ "tipo" ] = tipo
-    cursoArray[cont][ "hijos" ] = arrayAux
-    contCurso = contCurso + 1;
-}
-
-function initSeccion(){
-    contSeccion  = 0 
-    seccionArray = []
-}
-function seedSeccion(cont,rowData,tipo,arrayAux){
-    seccionArray[contSeccion]={ 
-        "nombre": "",
-        "tipo"  : "",
-        "hijos" : [{}]
-    }
-    seccionArray[cont]={}
-    seccionArray[cont][ "nombre" ] = rowData;
-    seccionArray[cont][ "tipo" ] = tipo;
-    seccionArray[cont][ "hijos" ] = arrayAux;
-    contSeccion = contSeccion + 1;
-}
-
-function initOferta(){
-    contOferta  = 0 
-    ofertaArray = []
-}
-
-function seedOferta(cont,rowData,tipo,arrayAux){
-    ofertaArray[contOferta]={ 
-        "nombre": "",
-        "tipo"  : "",
-        "hijos" : [{}]
-    }
-    ofertaArray[cont]={}
-    ofertaArray[cont][ "nombre" ] =  rowData;
-    ofertaArray[cont][ "tipo" ]   =  tipo
-    ofertaArray[cont][ "hijos" ]  =  [];
-    contOferta = contOferta + 1;
-}
-
-
-
-//Codigo principal:
-//Creamos un array que usaremos para poblar el objeto raiz:
+//Functions
+ function readRoot(root,csv){
+    let lineas = csv.split('\n');
     for (let i=1;i<lineas.length;i++){
+        // console.log(lineas)
         let rowData = lineas[i].split(',')
-    //sede  
-    if ((i+1) < lineas.length){
-            rowDataNext = lineas[i+1].split(',') 
+        rowDataAnt = lineas[i-1].split(',') 
+   
+        if (rowDataAnt[0]!=rowData[0]){
+          console.log(rowDataAnt)
+        }
     }
-        if (rowDataNext[0]==rowData[0]){
-            //cursos:
-                    if (rowDataNext[1]==rowData[1]){
-                            //Secciones
-                            if (rowDataNext[2]==rowData[2]){
-                                    //oferta
-                                        if (rowDataNext[3]==rowData[3]){
-                                        }else{
-                                            seedOferta(contOferta,rowData[3],"oferta",[])
-                                        }
-                            }else{
-                                seedOferta(contOferta,rowData[3],"oferta",[])
-                                seedSeccion(contSeccion,rowData[2],"seccion",ofertaArray)
-                                initOferta()
-                            }
-                    }else{
-                        seedSeccion(contCurso,rowData[2],"seccion",ofertaArray)
-                        seedCursos(contCurso,rowData[1],"curso",seccionArray)
-                        initSeccion()
-                    }
-            
-            }else{
-                seedCursos(contCurso,rowData[1],"curso",seccionArray)
-                raiz.hijos[contSedes] =   seedSedes(contSedes,rowData[0],"sede",cursoArray)
-                initCurso()
-            }
-    }
-
-
-
-//Comprobamos que funcione:
-console.log(raiz)
-console.log(raiz.hijos[0].hijos)             
-console.log(raiz.hijos[0].hijos[0])      
-console.log(raiz.hijos[0].hijos[0].hijos[0]) 
-console.log(raiz.hijos[1].hijos)             
-console.log(raiz.hijos[1].hijos[1])      
-
-
-
+ }
 
 
 
