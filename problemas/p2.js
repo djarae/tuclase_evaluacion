@@ -9,7 +9,7 @@ const Nodo = require("./src/Nodo");
 const raiz = new Nodo("raiz", "Raíz",[]);
 
 //vars
-posiArray = [0,0,0,0]
+posArr = [0,0,0,0]
 
 //Poblamos el archivo csv:
 let  csv = `Sede,Curso,Seccion,Oferta
@@ -84,34 +84,38 @@ Santiago,2 Básico,B,Lenguaje
           if (rowCount+1<lineas.length){
             if (columnCount==0){seedSedes(rowData[columnCount],headers[columnCount],auxSons)}
             if (columnCount==1){seedCurso(rowData[columnCount],headers[columnCount],auxSons)}
-            // if (columnCount < rowData.length){    //Solo debo ingresar si existe otra columna a la cual recorrer
-            //     makeJsonRecur(lineas,rowCount,columnCount+1,auxSons,0)
-            // }
-            posiArray[columnCount]=objId+1
+            if (columnCount < rowData.length){    //Solo debo ingresar si existe otra columna a la cual recorrer
+                makeJsonRecur(lineas,rowCount,columnCount+1,auxSons,0)
+            }
+            posArr[columnCount]=objId+1
             objId++
         }
      }
      rowCount++
    }
-   console.log(raiz)
+  //  console.log(raiz)
+  //  console.log(raiz.hijos)
+   console.log(raiz.hijos[2])
+
+
 
  }
 
  function seedSedes(name,tipe,sons){
     let auxNode = new Nodo(name,tipe,sons);
-    raiz.hijos[posiArray[0]]        = []
-    raiz.hijos[posiArray[0]].nombre = auxNode.nombre
-    raiz.hijos[posiArray[0]].tipo   = auxNode.tipo
-    raiz.hijos[posiArray[0]].hijos  = []
+    raiz.hijos[posArr[0]]        = []
+    raiz.hijos[posArr[0]].nombre = auxNode.nombre
+    raiz.hijos[posArr[0]].tipo   = auxNode.tipo
+    raiz.hijos[posArr[0]].hijos  = []
  }
 
  function seedCurso(name,tipe,sons){
-    // cl(posiArray[[0]])
+    // cl(posArr[[0]])
     let auxNode = new Nodo(name,tipe,sons);
-    raiz.hijos[i[0]].hijos[i[1]]        = []
-    raiz.hijos[i[0]].hijos[i[1]].nombre = auxNode.nombre
-    raiz.hijos[i[0]].hijos[i[1]].tipo   = auxNode.tipo
-    raiz.hijos[i[0]].hijos[i[1]].hijos  = auxNode.hijos 
+    raiz.hijos[posArr[0]].hijos[posArr[1]]        = []
+    raiz.hijos[posArr[0]].hijos[posArr[1]].nombre = auxNode.nombre
+    raiz.hijos[posArr[0]].hijos[posArr[1]].tipo   = auxNode.tipo
+    raiz.hijos[posArr[0]].hijos[posArr[1]].hijos  = auxNode.hijos 
 }
 
 
