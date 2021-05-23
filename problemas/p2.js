@@ -9,6 +9,7 @@ const Nodo = require("./src/Nodo");
 const raiz = new Nodo("raiz", "Raíz",[]);
 
 //vars
+posiArray = [0,0,0,0]
 
 //Poblamos el archivo csv:
 let  csv = `Sede,Curso,Seccion,Oferta
@@ -74,16 +75,17 @@ Santiago,2 Básico,B,Lenguaje
     makeJsonRecur(lineas,1,0,[],0,[0,0,0,0]);
  }
 
- function makeJsonRecur(lineas,rowCount,columnCount,auxSons,objId,posiArray){
+ function makeJsonRecur(lineas,rowCount,columnCount,auxSons,objId){
    while ( (rowCount<lineas.length)  ){
       let headers =  lineas[0].split(',')
       let rowData =  lineas[rowCount].split(',')  //LARGO ROWDATA SIEMPRE SERA 4,POR LO QUE SI EL COLUMNCOUNT LLEGA A 4 SE DEBE DETENER ESTO
       rowDataAnt =   lineas[rowCount-1].split(',')
       if (rowDataAnt[0]!=rowData[0]){
           if (rowCount+1<lineas.length){
-            if (columnCount==0){seedSedes(posiArray[columnCount],rowData[columnCount],headers[columnCount],auxSons)}
+            if (columnCount==0){seedSedes(rowData[columnCount],headers[columnCount],auxSons)}
+            if (columnCount==1){seedCurso(rowData[columnCount],headers[columnCount],auxSons)}
             // if (columnCount < rowData.length){    //Solo debo ingresar si existe otra columna a la cual recorrer
-            //     makeJsonRecur(lineas,rowCount,columnCount+1,auxSons,objId,posiArray.push(rowCount))
+            //     makeJsonRecur(lineas,rowCount,columnCount+1,auxSons,0)
             // }
             posiArray[columnCount]=objId+1
             objId++
@@ -95,13 +97,22 @@ Santiago,2 Básico,B,Lenguaje
 
  }
 
- function seedSedes(i,name,tipe,sons){
+ function seedSedes(name,tipe,sons){
     let auxNode = new Nodo(name,tipe,sons);
-    raiz.hijos[i]        = []
-    raiz.hijos[i].nombre = auxNode.nombre
-    raiz.hijos[i].tipo   = auxNode.tipo
-    raiz.hijos[i].hijos  = auxNode.hijos
+    raiz.hijos[posiArray[0]]        = []
+    raiz.hijos[posiArray[0]].nombre = auxNode.nombre
+    raiz.hijos[posiArray[0]].tipo   = auxNode.tipo
+    raiz.hijos[posiArray[0]].hijos  = []
  }
+
+ function seedCurso(name,tipe,sons){
+    // cl(posiArray[[0]])
+    let auxNode = new Nodo(name,tipe,sons);
+    raiz.hijos[i[0]].hijos[i[1]]        = []
+    raiz.hijos[i[0]].hijos[i[1]].nombre = auxNode.nombre
+    raiz.hijos[i[0]].hijos[i[1]].tipo   = auxNode.tipo
+    raiz.hijos[i[0]].hijos[i[1]].hijos  = auxNode.hijos 
+}
 
 
   function cl(e){
