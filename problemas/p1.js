@@ -10,55 +10,20 @@ const data = require("./src/input-p1.json");
 const Nodo = require("./src/Nodo");
 
 // console.log(returnNoSons());
-finalNode = new Nodo("raiz", "Raíz",[])
-cont = 0 
-console.log(noSonsRecursivo(data,cont)  );
-console.log(returnEspecific(4));
-console.log(contabilization());
-console.log(ejerc4());
+finalNode1 = new Nodo("raiz", "Raíz",[])
+finalNode2 = new Nodo("raiz", "Raíz",[])
 
-function returnNoSons(){
-    //NOTA: I representa la palabra : INDEX
-    //Recorremos cada arreglo y buscamos el que tenga un largo "0" de arreglos
-    let arrayFinal = []
-    for (let sedeI=0;sedeI<data.hijos.length;sedeI++){
-        if (data.hijos[sedeI].hijos.length==0){
-            arrayFinal.push(data.hijos[sedeI]);
-        }
-        for (let cursoI=0;         cursoI<data.hijos[sedeI].hijos.length;          cursoI++){
-            if (data.hijos[sedeI].hijos[cursoI].hijos.length==0){
-                arrayFinal.push(data.hijos[sedeI].hijos[cursoI]);
-            }
-            for (let seccionI=0; seccionI<data.hijos[sedeI].hijos[cursoI].hijos.length;              seccionI++){
-                if ( data.hijos[sedeI].hijos[cursoI].hijos[seccionI].hijos.length==0){
-                    arrayFinal.push(data.hijos[sedeI].hijos[cursoI].hijos[seccionI]);
-                }
-                for (let ofertaI=0; ofertaI<   data.hijos[sedeI].hijos[cursoI].hijos[seccionI].hijos.length;              ofertaI++){
-                    if (data.hijos[sedeI].hijos[cursoI].hijos[seccionI].hijos[ofertaI].hijos.length==0){
-                        arrayFinal.push(data.hijos[sedeI].hijos[cursoI].hijos[seccionI].hijos[ofertaI]);
-                    }
-                }
-            }
-        }
-    }
-    return arrayFinal
-}
+cont1 = 0 
+cont2 = 0 
+
+console.log(noSonsRecursivo(data)  );
+// console.log(parametizable(data,5)  );
+// console.log(contabilization());
+// console.log(ejerc4());
+
 
 function cl(elemento){
     console.log(elemento)
-}
-
-function noSonsRecursivo(obcjetD){
-    for (let i=0;i<obcjetD.hijos.length;i++){
-      if  (obcjetD.hijos[i].hijos.length==0){
-        finalNode[cont] = obcjetD.hijos[i]
-        cont++
-      }else{
-        noSonsRecursivo(obcjetD.hijos[i])
-      }
-        
-    }
-    return  finalNode
 }
 
 function printJson(obcjetD){
@@ -67,6 +32,34 @@ function printJson(obcjetD){
             noSonsRecursivo(obcjetD.hijos[i])
     }
     return 0
+}
+
+//Recorremos de forma recursiva el arreglo para encontrar el valor solicitado
+function noSonsRecursivo(obcjetD){
+    for (let i=0;i<obcjetD.hijos.length;i++){
+      if  (obcjetD.hijos[i].hijos.length==0){
+        finalNode1[cont1] = obcjetD.hijos[i]
+        cont1++
+      }else{
+        noSonsRecursivo(obcjetD.hijos[i])
+      }
+    }
+    return  finalNode1
+}
+
+
+function parametizable(obcjetD,valor){
+    for (let i=0;i<obcjetD.hijos.length;i++){
+      if  (obcjetD.hijos[i].hijos.length==0){
+      }else{
+        if (obcjetD.hijos[i].length==0){
+            finalNode2[cont2] = obcjetD.hijos[i]
+            cont2++
+        }  
+        parametizable(obcjetD.hijos[i])
+      }
+    }
+    return  finalNode2
 }
 
 
