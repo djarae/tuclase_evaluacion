@@ -80,6 +80,7 @@ Santiago,2 Básico,B,Lenguaje
 
 //Functions
 
+//Se puede aplicar recursividad para facilitarlo:
  function generateJson(){
     let lineas = csv.split('\n');
     for (let i=1;i<lineas.length;i++){
