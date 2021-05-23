@@ -20,7 +20,7 @@ cont3 = 0
 console.log(noSonsRecursive(data)  );
 console.log(parametizable(data,5)  );
 console.log(countNodes(data,cont3));
-// console.log(ejerc4());
+console.log(ejerc4());
 
 
 function cl(elemento){
@@ -48,7 +48,7 @@ function noSonsRecursive(obcjetD){
     return  finalNode1
 }
 
-//Aqui se puede realizar recursivamente tambien
+//Realizamos el conteo de los nodos totales de forma recursiva
 function parametizable(obcjetD,valor){
     for (let i=0;i<obcjetD.hijos.length;i++){
         if (obcjetD.hijos[i].length==valor){
@@ -69,8 +69,7 @@ function countNodes(obcjetD){
     return  cont3
 }
 
-// 4. Retornar todas las Sedes con 4° Medio que *SI* poseen la *Oferta Tecnología* en sus *Secciones A*
-//Colocaremos un if al ingresar a un nuevo arreglo con el fin de obtener exactamente la data que deseamos
+//Este ejercicio en particular se me hizo mas simple sin utilizar recursividad
 function ejerc4(){
     let arrayFinal = []
         for (let sedeI=0;sedeI<data.hijos.length;sedeI++){
