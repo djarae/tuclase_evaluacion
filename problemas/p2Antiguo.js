@@ -6,8 +6,20 @@
  */
 //imports:
 const Nodo = require("./src/Nodo");
-const raiz = new Nodo("root", "Raíz",[]);
+const raiz = new Nodo("raiz", "Raíz",[]);
 
+//vars
+contSede = 0;
+contSedeAnt = 0;
+
+contCurso = 0;
+contCursoAnt = 0;
+
+contSeccion = 0;
+contSeccionAnt = 0 ;
+
+contOferta = 0;
+contOfertaAnt = 0 ;
 
 //Poblamos el archivo csv:
 let  csv = `Sede,Curso,Seccion,Oferta
@@ -62,137 +74,82 @@ Santiago,2 Básico,B,Lenguaje
 Ñuñoa,1 Básico,A,Matematicas
   `
 
+  generateJson();
+//vars
 
 
-//vars:
-let sedesArray = [];
-let lineas = csv.split('\n');
-let contSedes = 0;
-let cursoArray = [];
-let contCurso = 0;
-let seccionArray = [];
-let contSeccion = 0;
-let ofertaArray = [];
-let contOferta = 0;
+//Functions
 
-//Funciones:
-function seedSedes(cont,rowData,tipo,arrayAux){
-    sedesArray[contSedes]={ 
-        "nombre": "",
-        "tipo"  : "",
-        "hijos" : [{}]
-    }
-    sedesArray[cont][ "nombre" ] = rowData;
-    sedesArray[cont][ "tipo" ] = tipo;
-    sedesArray[cont][ "hijos" ] = (arrayAux);
-  
-    contSedes = contSedes + 1;
-
-    return   sedesArray[cont]
-}
-
-function initCurso(){
-    contCurso  = 0 
-    cursoArray = []
-}
-function seedCursos(cont,rowData,tipo,arrayAux){
-    cursoArray[contCurso]={ 
-        "nombre": "",
-        "tipo"  : "",
-        "hijos" : [{}]
-    }
-    cursoArray[cont]={}
-    cursoArray[cont][ "nombre" ] = rowData;
-    cursoArray[cont][ "tipo" ] = tipo
-    cursoArray[cont][ "hijos" ] = arrayAux
-    contCurso = contCurso + 1;
-}
-
-function initSeccion(){
-    contSeccion  = 0 
-    seccionArray = []
-}
-function seedSeccion(cont,rowData,tipo,arrayAux){
-    seccionArray[contSeccion]={ 
-        "nombre": "",
-        "tipo"  : "",
-        "hijos" : [{}]
-    }
-    seccionArray[cont]={}
-    seccionArray[cont][ "nombre" ] = rowData;
-    seccionArray[cont][ "tipo" ] = tipo;
-    seccionArray[cont][ "hijos" ] = arrayAux;
-    contSeccion = contSeccion + 1;
-}
-
-function initOferta(){
-    contOferta  = 0 
-    ofertaArray = []
-}
-
-function seedOferta(cont,rowData,tipo,arrayAux){
-    ofertaArray[contOferta]={ 
-        "nombre": "",
-        "tipo"  : "",
-        "hijos" : [{}]
-    }
-    ofertaArray[cont]={}
-    ofertaArray[cont][ "nombre" ] =  rowData;
-    ofertaArray[cont][ "tipo" ]   =  tipo
-    ofertaArray[cont][ "hijos" ]  =  [];
-    contOferta = contOferta + 1;
-}
-
-
-
-//Codigo principal:
-//Creamos un array que usaremos para poblar el objeto raiz:
+//Se puede aplicar recursividad para facilitarlo:
+ function generateJson(){
+    let lineas = csv.split('\n');
     for (let i=1;i<lineas.length;i++){
+        // console.log(lineas)
         let rowData = lineas[i].split(',')
-    //sede  
-    if ((i+1) < lineas.length){
-            rowDataNext = lineas[i+1].split(',') 
+          rowDataAnt = lineas[i-1].split(',') 
+        if  (i+1<lineas.length){
+          rowDataNext = lineas[i+1].split(',') 
+        }
+
+        if (rowDataAnt[0]!=rowData[0]){
+          if (i+1<lineas.length){
+              let auxSede = new Nodo(rowData[0], "Sede",[]);
+              raiz.hijos[contSede] = []
+              raiz.hijos[contSede].nombre = auxSede.nombre
+              raiz.hijos[contSede].tipo   = auxSede.tipo
+              raiz.hijos[contSede].hijos  = auxSede.hijos
+              contSedeAnt=contSede
+              contSede++
+              contCurso=0
+          }
+        }
+        //Como antes no se repiten las sedes procedemos a evaluar el curso si es que se repite
+        if (rowDataAnt[1]!=rowData[1]){ 
+          if (i+1<lineas.length){
+            let auxCurso = new Nodo(rowData[1], "Curso",[]);
+            raiz.hijos[contSedeAnt].hijos[contCurso]  = []
+            raiz.hijos[contSedeAnt].hijos[contCurso].nombre = auxCurso.nombre
+            raiz.hijos[contSedeAnt].hijos[contCurso].tipo   = auxCurso.tipo
+            raiz.hijos[contSedeAnt].hijos[contCurso].hijos  = auxCurso.hijos 
+            contCursoAnt=contCurso
+            contCurso++
+            contSeccion=0
+          }
+        }
+      
+        if (rowDataAnt[2]!=rowData[2]){ 
+          if (i+1<lineas.length){
+            let auxSeccion = new Nodo(rowData[2], "Seccion",[]);
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccion]   = []
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccion].nombre = auxSeccion.nombre
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccion].tipo   = auxSeccion.tipo
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccion].hijos  = auxSeccion.hijos 
+            contSeccionAnt=contSeccion
+            contSeccion++
+            contOferta=0
+          }
+      }
+
+      if (rowDataAnt[3]!=rowData[3]){ 
+        if (i+1<lineas.length){
+          let auxOferta = new Nodo(rowData[3], "Oferta",[]);
+          console.log("entro cant");console.log(contOferta)
+          if (typeof  raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccionAnt] === 'undefined') {
+            console.log("undefined")
+          }
+          else{
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccionAnt].hijos[contOferta]   = []
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccionAnt].hijos[contOferta].nombre = auxOferta.nombre
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccionAnt].hijos[contOferta].tipo   = auxOferta.tipo
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccionAnt].hijos[contOferta].hijos  = auxOferta.hijos 
+          }
+          contOferta++
+        }
     }
-        if (rowDataNext[0]==rowData[0]){
-            //cursos:
-                    if (rowDataNext[1]==rowData[1]){
-                            //Secciones
-                            if (rowDataNext[2]==rowData[2]){
-                                    //oferta
-                                        if (rowDataNext[3]==rowData[3]){
-                                        }else{
-                                            seedOferta(contOferta,rowData[3],"oferta",[])
-                                        }
-                            }else{
-                                seedOferta(contOferta,rowData[3],"oferta",[])
-                                seedSeccion(contSeccion,rowData[2],"seccion",ofertaArray)
-                                initOferta()
-                            }
-                    }else{
-                        seedSeccion(contCurso,rowData[2],"seccion",ofertaArray)
-                        seedCursos(contCurso,rowData[1],"curso",seccionArray)
-                        initSeccion()
-                    }
-            
-            }else{
-                seedCursos(contCurso,rowData[1],"curso",seccionArray)
-                raiz.hijos[contSedes] =   seedSedes(contSedes,rowData[0],"sede",cursoArray)
-                initCurso()
-            }
+          
     }
 
-
-
-//Comprobamos que funcione:
-console.log(raiz)
-console.log(raiz.hijos[0].hijos)             
-console.log(raiz.hijos[0].hijos[0])      
-console.log(raiz.hijos[0].hijos[0].hijos[0]) 
-console.log(raiz.hijos[1].hijos)             
-console.log(raiz.hijos[1].hijos[1])      
-
-
-
+ }
 
 
 
