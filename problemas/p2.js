@@ -80,12 +80,12 @@ Santiago,2 Básico,B,Lenguaje
       let headers =  lineas[0].split(',')
       let rowData =  lineas[rowCount].split(',')  //LARGO ROWDATA SIEMPRE SERA 4,POR LO QUE SI EL COLUMNCOUNT LLEGA A 4 SE DEBE DETENER ESTO
       rowDataAnt =   lineas[rowCount-1].split(',')
-      if (rowDataAnt[0]!=rowData[0]){
+      if (rowDataAnt[columnCount]!=rowData[columnCount]){
           if (rowCount+1<lineas.length){
             if (columnCount==0){seedSedes(rowData[columnCount],headers[columnCount])}
             if (columnCount==1){seedCurso(rowData[columnCount],headers[columnCount])}
-            if (columnCount < rowData.length){//Solo debo ingresar si existe otra columna a la cual recorrer
-                makeJsonRecur(lineas,rowCount,columnCount+1,0)
+            if (columnCount < 2){//Solo debo ingresar si existe otra columna a la cual recorrer
+                makeJsonRecur(lineas,1,columnCount+1,0)
             }
             posArr[columnCount]=objId+1
             objId++
@@ -93,10 +93,13 @@ Santiago,2 Básico,B,Lenguaje
      }
      rowCount++
    }
-  //  console.log(raiz)
-  //  console.log(raiz.hijos)
-  //  console.log(raiz.hijos[2])
-  console.log(raiz.hijos[0])
+  //  cl( raiz.hijos)
+  cl( raiz.hijos[0])
+  cl( raiz.hijos[1])
+  cl( raiz.hijos[2])
+  cl( raiz.hijos[3])
+
+  
  }
 
  function seedSedes(name,tipe){
@@ -108,7 +111,6 @@ Santiago,2 Básico,B,Lenguaje
  }
 
  function seedCurso(name,tipe){
-    // cl(posArr[[0]])
     let auxNode = new Nodo(name,tipe,[]);
     raiz.hijos[posArr[0]].hijos[posArr[1]]        = []
     raiz.hijos[posArr[0]].hijos[posArr[1]].nombre = auxNode.nombre
