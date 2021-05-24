@@ -87,10 +87,6 @@ Santiago,2 Básico,B,Lenguaje
   console.log(raiz.hijos[0].hijos[1]);
   console.log(raiz.hijos[0].hijos[1].hijos[1]);
 
-
-
-
-
 //vars
 
 
