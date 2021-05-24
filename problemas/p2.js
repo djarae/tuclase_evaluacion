@@ -83,7 +83,9 @@ Santiago,2 Básico,B,Lenguaje
       if (rowDataAnt[columnCount]!=rowData[columnCount]){
           if (rowCount+1<lineas.length){
             if (columnCount==0){seedSedes(rowData[columnCount],headers[columnCount])}
-            if (columnCount==1){seedCurso(rowData[columnCount],headers[columnCount])}
+            if (columnCount==1 ){
+                seedCurso(rowData[columnCount],headers[columnCount])
+              }
             if (columnCount < 2){//Solo debo ingresar si existe otra columna a la cual recorrer
                 makeJsonRecur(lineas,1,columnCount+1,0)
             }
