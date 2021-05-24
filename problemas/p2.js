@@ -79,8 +79,12 @@ Santiago,2 Básico,B,Lenguaje
   // cl(raiz.hijos[3])
   // cl(raiz.hijos[4])
   // cl(raiz.hijos[0].hijos[0])
-  cl(raiz.hijos[0].hijos[1])
+  // cl(raiz.hijos[0].hijos[1])
   // cl(raiz.hijos[0].hijos[2])
+  // cl(raiz.hijos[0].hijos[0].hijos[0].hijos[0])
+  cl(raiz.hijos[0].hijos[0].hijos[0])
+
+
 
  }
 
@@ -107,6 +111,11 @@ Santiago,2 Básico,B,Lenguaje
                 seedSeccion(rowData[columnCount],headers[columnCount])
                 makeJsonRecur(lineas,1,columnCount+1,0,rowData[columnCount])
               }
+              if (  (columnCount==3) &
+              (colAnt==rowData[columnCount-1])  ){
+                  seedOferta(rowData[columnCount],headers[columnCount])
+                  makeJsonRecur(lineas,1,columnCount+1,0,rowData[columnCount])
+                }
             posArr[columnCount]=objId+1
             objId++
         }
@@ -138,6 +147,14 @@ function seedSeccion(name,tipe){
   raiz.hijos[posArr[0]].hijos[posArr[1]].hijos[posArr[2]].nombre = auxNode.nombre
   raiz.hijos[posArr[0]].hijos[posArr[1]].hijos[posArr[2]].tipo   = auxNode.tipo
   raiz.hijos[posArr[0]].hijos[posArr[1]].hijos[posArr[2]].hijos  = auxNode.hijos 
+}
+
+function seedOferta(name,tipe){
+  let auxNode = new Nodo(name,tipe,[]);
+  raiz.hijos[posArr[0]].hijos[posArr[1]].hijos[posArr[2]].hijos[posArr[3]]  = []
+  raiz.hijos[posArr[0]].hijos[posArr[1]].hijos[posArr[2]].hijos[posArr[3]].nombre = auxNode.nombre
+  raiz.hijos[posArr[0]].hijos[posArr[1]].hijos[posArr[2]].hijos[posArr[3]].tipo   = auxNode.tipo
+  raiz.hijos[posArr[0]].hijos[posArr[1]].hijos[posArr[2]].hijos[posArr[3]].hijos  = auxNode.hijos 
 }
 
   function cl(e){
