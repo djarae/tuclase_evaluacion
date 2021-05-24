@@ -9,7 +9,17 @@ const Nodo = require("./src/Nodo");
 const raiz = new Nodo("raiz", "Raíz",[]);
 
 //vars
-posArr = [0,0,0,0]
+contSede = 0;
+contSedeAnt = 0;
+
+contCurso = 0;
+contCursoAnt = 0;
+
+contSeccion = 0;
+contSeccionAnt = 0 ;
+
+contOferta = 0;
+contOfertaAnt = 0 ;
 
 //Poblamos el archivo csv:
 let  csv = `Sede,Curso,Seccion,Oferta
@@ -65,101 +75,95 @@ Santiago,2 Básico,B,Lenguaje
   `
 
   generateJson();
+
+//Print del resultado:
+  console.log(raiz);
+  console.log(raiz.hijos);
+  console.log(raiz.hijos[0].hijos);
+  console.log(raiz.hijos[0].hijos[0]);
+  console.log(raiz.hijos[0].hijos[0].hijos[0]);
+  console.log(raiz.hijos);
+  console.log(raiz.hijos[1].hijos);
+  console.log(raiz.hijos[0].hijos[1]);
+  console.log(raiz.hijos[0].hijos[1].hijos[1]);
+
+
+
+
+
 //vars
 
 
 //Functions
-//Se puede aplicar recursividad para facilitarlo:
  function generateJson(){
     let lineas = csv.split('\n');
-    makeJsonRecur(lineas,1,0,[],0,[0,0,0,0],"none");
-  // cl(raiz.hijos[0])
-  // cl(raiz.hijos[1])
-  // cl(raiz.hijos[2])
-  // cl(raiz.hijos[3])
-  // cl(raiz.hijos[4])
-  // cl(raiz.hijos[0].hijos[0])
-  // cl(raiz.hijos[0].hijos[1])
-  // cl(raiz.hijos[0].hijos[2])
-  // cl(raiz.hijos[0].hijos[0].hijos[0].hijos[0])
-  cl(raiz.hijos[0].hijos[0].hijos[0])
-
-
-
- }
-
- function makeJsonRecur(lineas,rowCount,columnCount,objId,colAnt){
-   while ( (rowCount<lineas.length)  ){
-      let headers =  lineas[0].split(',')
-      let rowData =  lineas[rowCount].split(',')  //LARGO ROWDATA SIEMPRE SERA 4,POR LO QUE SI EL COLUMNCOUNT LLEGA A 4 SE DEBE DETENER ESTO
-      rowDataAnt =   lineas[rowCount-1].split(',')
-      if (rowDataAnt[columnCount]!=rowData[columnCount]){
-          if (rowCount+1<lineas.length){
-            console.log("column count")
-            console.log(columnCount)
-            if (columnCount==0){
-              seedSedes(rowData[columnCount],headers[columnCount])
-              makeJsonRecur(lineas,1,columnCount+1,0,rowData[columnCount])
-            }
-            if (  (columnCount==1) &
-            (colAnt==rowData[columnCount-1])  ){
-                seedCurso(rowData[columnCount],headers[columnCount])
-                makeJsonRecur(lineas,1,columnCount+1,0,rowData[columnCount])
-              }
-            if (  (columnCount==2) &
-            (colAnt==rowData[columnCount-1])  ){
-                seedSeccion(rowData[columnCount],headers[columnCount])
-                makeJsonRecur(lineas,1,columnCount+1,0,rowData[columnCount])
-              }
-              if (  (columnCount==3) &
-              (colAnt==rowData[columnCount-1])  ){
-                  seedOferta(rowData[columnCount],headers[columnCount])
-                  makeJsonRecur(lineas,1,columnCount+1,0,rowData[columnCount])
-                }
-            posArr[columnCount]=objId+1
-            objId++
+    for (let i=1;i<lineas.length;i++){
+        // console.log(lineas)
+        let rowData = lineas[i].split(',')
+          rowDataAnt = lineas[i-1].split(',') 
+        if  (i+1<lineas.length){
+          rowDataNext = lineas[i+1].split(',') 
         }
-     }
-     rowCount++
-   }
+
+        if (rowDataAnt[0]!=rowData[0]){
+          if (i+1<lineas.length){
+              let auxSede = new Nodo(rowData[0], "Sede",[]);
+              raiz.hijos[contSede] = []
+              raiz.hijos[contSede].nombre = auxSede.nombre
+              raiz.hijos[contSede].tipo   = auxSede.tipo
+              raiz.hijos[contSede].hijos  = auxSede.hijos
+              contSedeAnt=contSede
+              contSede++
+              contCurso=0
+          }
+        }
+        //Como antes no se repiten las sedes procedemos a evaluar el curso si es que se repite
+        if (rowDataAnt[1]!=rowData[1]){ 
+          if (i+1<lineas.length){
+            let auxCurso = new Nodo(rowData[1], "Curso",[]);
+            raiz.hijos[contSedeAnt].hijos[contCurso]  = []
+            raiz.hijos[contSedeAnt].hijos[contCurso].nombre = auxCurso.nombre
+            raiz.hijos[contSedeAnt].hijos[contCurso].tipo   = auxCurso.tipo
+            raiz.hijos[contSedeAnt].hijos[contCurso].hijos  = auxCurso.hijos 
+            contCursoAnt=contCurso
+            contCurso++
+            contSeccion=0
+          }
+        }
+      
+        if (rowDataAnt[2]!=rowData[2]){ 
+          if (i+1<lineas.length){
+            let auxSeccion = new Nodo(rowData[2], "Seccion",[]);
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccion]   = []
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccion].nombre = auxSeccion.nombre
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccion].tipo   = auxSeccion.tipo
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccion].hijos  = auxSeccion.hijos 
+            contSeccionAnt=contSeccion
+            contSeccion++
+            contOferta=0
+          }
+      }
+
+      if (rowDataAnt[3]!=rowData[3]){ 
+        if (i+1<lineas.length){
+          let auxOferta = new Nodo(rowData[3], "Oferta",[]);
+          if (typeof  raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccionAnt] === 'undefined') {
+            console.log("undefined")
+          }
+          else{
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccionAnt].hijos[contOferta]   = []
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccionAnt].hijos[contOferta].nombre = auxOferta.nombre
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccionAnt].hijos[contOferta].tipo   = auxOferta.tipo
+            raiz.hijos[contSedeAnt].hijos[contCursoAnt].hijos[contSeccionAnt].hijos[contOferta].hijos  = auxOferta.hijos 
+          }
+          contOferta++
+        }
+    }
+          
+    }
+
  }
-//need create a function to validate dont repeated elements
 
- function seedSedes(name,tipe){
-    let auxNode = new Nodo(name,tipe,[]);
-    raiz.hijos[posArr[0]]        = []
-    raiz.hijos[posArr[0]].nombre = auxNode.nombre
-    raiz.hijos[posArr[0]].tipo   = auxNode.tipo
-    raiz.hijos[posArr[0]].hijos  = []
- }
-
- function seedCurso(name,tipe){
-    let auxNode = new Nodo(name,tipe,[]);
-    raiz.hijos[posArr[0]].hijos[posArr[1]]        = []
-    raiz.hijos[posArr[0]].hijos[posArr[1]].nombre = auxNode.nombre
-    raiz.hijos[posArr[0]].hijos[posArr[1]].tipo   = auxNode.tipo
-    raiz.hijos[posArr[0]].hijos[posArr[1]].hijos  = auxNode.hijos 
-}
-
-function seedSeccion(name,tipe){
-  let auxNode = new Nodo(name,tipe,[]);
-  raiz.hijos[posArr[0]].hijos[posArr[1]].hijos[posArr[2]]   = []
-  raiz.hijos[posArr[0]].hijos[posArr[1]].hijos[posArr[2]].nombre = auxNode.nombre
-  raiz.hijos[posArr[0]].hijos[posArr[1]].hijos[posArr[2]].tipo   = auxNode.tipo
-  raiz.hijos[posArr[0]].hijos[posArr[1]].hijos[posArr[2]].hijos  = auxNode.hijos 
-}
-
-function seedOferta(name,tipe){
-  let auxNode = new Nodo(name,tipe,[]);
-  raiz.hijos[posArr[0]].hijos[posArr[1]].hijos[posArr[2]].hijos[posArr[3]]  = []
-  raiz.hijos[posArr[0]].hijos[posArr[1]].hijos[posArr[2]].hijos[posArr[3]].nombre = auxNode.nombre
-  raiz.hijos[posArr[0]].hijos[posArr[1]].hijos[posArr[2]].hijos[posArr[3]].tipo   = auxNode.tipo
-  raiz.hijos[posArr[0]].hijos[posArr[1]].hijos[posArr[2]].hijos[posArr[3]].hijos  = auxNode.hijos 
-}
-
-  function cl(e){
-    console.log(e)
-  }
 
 
 
