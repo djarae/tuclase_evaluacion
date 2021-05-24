@@ -73,9 +73,14 @@ Santiago,2 Básico,B,Lenguaje
  function generateJson(){
     let lineas = csv.split('\n');
     makeJsonRecur(lineas,1,0,[],0,[0,0,0,0]);
+  cl(raiz.hijos[0])
+  cl(raiz.hijos[1])
+  cl(raiz.hijos[2])
+  cl(raiz.hijos[3])
+  cl(raiz.hijos[4])
  }
 
- function makeJsonRecur(lineas,rowCount,columnCount,objId){
+ function makeJsonRecur(lineas,rowCount,columnCount,objId,swSal){
    while ( (rowCount<lineas.length)  ){
       let headers =  lineas[0].split(',')
       let rowData =  lineas[rowCount].split(',')  //LARGO ROWDATA SIEMPRE SERA 4,POR LO QUE SI EL COLUMNCOUNT LLEGA A 4 SE DEBE DETENER ESTO
@@ -83,11 +88,13 @@ Santiago,2 Básico,B,Lenguaje
       if (rowDataAnt[columnCount]!=rowData[columnCount]){
           if (rowCount+1<lineas.length){
             if (columnCount==0){seedSedes(rowData[columnCount],headers[columnCount])}
-            if (columnCount==1 ){
+            if ((columnCount==1)){
                 seedCurso(rowData[columnCount],headers[columnCount])
               }
             if (columnCount < 2){//Solo debo ingresar si existe otra columna a la cual recorrer
+              if (columnCount==0){
                 makeJsonRecur(lineas,1,columnCount+1,0)
+              }
             }
             posArr[columnCount]=objId+1
             objId++
@@ -95,12 +102,7 @@ Santiago,2 Básico,B,Lenguaje
      }
      rowCount++
    }
-  //  cl( raiz.hijos)
-  cl( raiz.hijos[0])
-  cl( raiz.hijos[1])
-  cl( raiz.hijos[2])
-  cl( raiz.hijos[3])
-
+ 
   
  }
 
